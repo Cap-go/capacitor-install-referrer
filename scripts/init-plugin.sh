@@ -33,134 +33,26 @@ to_pascal_case() {
 }
 
 write_kotlin_build_gradle() {
-  cat > "android/build.gradle" <<EOF
-ext {
-    junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
-    androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.7.1'
-    androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.3.0'
-    androidxEspressoCoreVersion = project.hasProperty('androidxEspressoCoreVersion') ? rootProject.ext.androidxEspressoCoreVersion : '3.7.0'
-    androidxCoreKTXVersion = project.hasProperty('androidxCoreKTXVersion') ? rootProject.ext.androidxCoreKTXVersion : '1.17.0'
+  copy_kotlin_template \
+    "scripts/templates/kotlin/android/build.gradle.template" \
+    "android/build.gradle"
 }
 
-buildscript {
-    ext.kotlin_version = project.hasProperty("kotlin_version") ? rootProject.ext.kotlin_version : '2.2.20'
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.13.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:\$kotlin_version"
-    }
-}
+copy_kotlin_template() {
+  local source="$1"
+  local destination="$2"
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
-android {
-    namespace = "${package_id}"
-    compileSdk = project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 36
-    defaultConfig {
-        minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 24
-        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 36
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    lintOptions {
-        abortOnError = false
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
-    }
-}
-
-kotlin {
-    jvmToolchain(21)
-}
-
-repositories {
-    google()
-    mavenCentral()
-}
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':capacitor-android')
-    implementation "androidx.appcompat:appcompat:\$androidxAppCompatVersion"
-    implementation "androidx.core:core-ktx:\$androidxCoreKTXVersion"
-    testImplementation "junit:junit:\$junitVersion"
-    androidTestImplementation "androidx.test.ext:junit:\$androidxJunitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:\$androidxEspressoCoreVersion"
-}
-EOF
+  mkdir -p "$(dirname "$destination")"
+  cp "$source" "$destination"
 }
 
 write_kotlin_android_sources() {
+  local template_root="scripts/templates/kotlin/android/src/main/kotlin"
   local kotlin_dir="android/src/main/kotlin/$package_path"
 
   rm -rf "android/src/main/java"
-  mkdir -p "$kotlin_dir"
-
-  cat > "$kotlin_dir/${class_name}.kt" <<EOF
-package ${package_id}
-
-import com.getcapacitor.Logger
-
-class ${class_name} {
-
-    fun echo(value: String): String {
-        Logger.info("Echo", value)
-
-        return value
-    }
-
-    fun getPluginVersion(): String {
-        return "native"
-    }
-}
-EOF
-
-  cat > "$kotlin_dir/${plugin_class_name}.kt" <<EOF
-package ${package_id}
-
-import com.getcapacitor.JSObject
-import com.getcapacitor.Plugin
-import com.getcapacitor.PluginCall
-import com.getcapacitor.PluginMethod
-import com.getcapacitor.annotation.CapacitorPlugin
-
-@CapacitorPlugin(name = "${class_name}")
-class ${plugin_class_name} : Plugin() {
-
-    private val implementation = ${class_name}()
-
-    @PluginMethod
-    fun echo(call: PluginCall) {
-        val value = call.getString("value") ?: ""
-
-        val ret = JSObject().apply {
-            put("value", implementation.echo(value))
-        }
-        call.resolve(ret)
-    }
-
-    @PluginMethod
-    fun getPluginVersion(call: PluginCall) {
-        val ret = JSObject().apply {
-            put("version", implementation.getPluginVersion())
-        }
-        call.resolve(ret)
-    }
-}
-EOF
+  copy_kotlin_template "$template_root/PluginTemplate.kt.template" "$kotlin_dir/${class_name}.kt"
+  copy_kotlin_template "$template_root/PluginTemplatePlugin.kt.template" "$kotlin_dir/${plugin_class_name}.kt"
 }
 
 if [[ $# -lt 1 || $# -gt 5 ]]; then
@@ -171,8 +63,20 @@ fi
 slug="$1"
 class_name="${2:-$(to_pascal_case "$slug")}"
 package_id="${3:-app.capgo.${slug//-/_}}"
-github_org="${4:-Cap-go}"
-android_lang="$(printf '%s' "${5:-java}" | tr '[:upper:]' '[:lower:]')"
+github_org="Cap-go"
+android_lang="java"
+
+if [[ $# -ge 4 ]]; then
+  candidate_arg_4="$4"
+  candidate_arg_4_lower="$(printf '%s' "$candidate_arg_4" | tr '[:upper:]' '[:lower:]')"
+
+  if [[ $# -eq 4 && "$candidate_arg_4_lower" =~ ^(java|kotlin)$ ]]; then
+    android_lang="$candidate_arg_4_lower"
+  else
+    github_org="$candidate_arg_4"
+    android_lang="$(printf '%s' "${5:-java}" | tr '[:upper:]' '[:lower:]')"
+  fi
+fi
 
 if [[ ! "$slug" =~ ^[a-z0-9][a-z0-9-]*$ ]]; then
   echo "Invalid plugin slug: $slug"

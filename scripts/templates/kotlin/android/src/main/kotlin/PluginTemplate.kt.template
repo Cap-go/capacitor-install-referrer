@@ -1,0 +1,16 @@
+package app.capgo.plugintemplate
+
+import com.getcapacitor.Logger
+
+class PluginTemplate {
+
+    fun echo(value: String): String {
+        Logger.info("Echo", value)
+
+        return value
+    }
+
+    fun getPluginVersion(): String {
+        return "native"
+    }
+}

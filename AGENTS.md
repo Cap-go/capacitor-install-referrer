@@ -25,6 +25,7 @@ Immediately after running it in a generated plugin copy:
    - `git remote set-url origin git@github.com:Cap-go/capacitor-<plugin-slug>.git`
 2. Remove bootstrap-only init script from the generated copy:
    - delete `scripts/init-plugin.sh`
+   - delete `scripts/templates/`
    - remove `"init-plugin"` from `package.json` scripts
 
 ## Public Release Requirements (Mandatory)

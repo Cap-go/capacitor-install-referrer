@@ -23,7 +23,7 @@
 - [ ] Change git remote away from this template before first push:
   `git remote set-url origin git@github.com:Cap-go/capacitor-{{PLUGIN_SLUG}}.git`
 - [ ] Remove bootstrap-only init script from generated plugin copy:
-  delete `scripts/init-plugin.sh` and remove `"init-plugin"` from `package.json` scripts.
+  delete `scripts/init-plugin.sh`, delete `scripts/templates/`, and remove `"init-plugin"` from `package.json` scripts.
 - [ ] Update the compatibility table for this plugin.
 - [ ] Update `src/definitions.ts` with the real public API and JSDoc.
 - [ ] Run `bun run docgen` and review generated API docs below.
@@ -87,6 +87,7 @@ After running `init-plugin` in your new plugin copy:
 ```bash
 git remote set-url origin git@github.com:Cap-go/capacitor-your-plugin.git
 rm scripts/init-plugin.sh
+rm -rf scripts/templates
 ```
 
 Then remove `"init-plugin"` from the `scripts` section in `package.json` before publishing.
