@@ -1,7 +1,7 @@
 import XCTest
 @testable import PluginTemplatePlugin
 
-class PluginTemplatePluginTests: XCTestCase {
+class PluginTemplateTests: XCTestCase {
     func testEcho() {
         let implementation = PluginTemplate()
         let value = "Hello, World!"

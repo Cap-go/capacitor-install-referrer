@@ -74,10 +74,13 @@ Policy:
 ```bash
 bun install
 bun run init-plugin your-plugin YourPlugin app.capgo.yourplugin
+# Optional Kotlin Android variant:
+# bun run init-plugin your-plugin YourPlugin app.capgo.yourplugin Cap-go kotlin
 bun run verify
 ```
 
 The `init-plugin` command updates package names, native class names, iOS/Android identifiers, and the local example app wiring.
+It accepts an optional fifth `android-lang` argument and defaults to `java`; pass `kotlin` to generate Kotlin Android sources and Gradle setup.
 
 After running `init-plugin` in your new plugin copy:
 
@@ -251,6 +254,7 @@ Echo a string to validate JS &lt;-&gt; native wiring.
 
 --------------------
 
+
 ### getPluginVersion()
 
 ```typescript
@@ -263,7 +267,9 @@ Returns the platform implementation version marker.
 
 --------------------
 
+
 ### Interfaces
+
 
 #### EchoResult
 
@@ -273,6 +279,7 @@ Echo response payload.
 | ----------- | ------------------- | -------------------------------- |
 | **`value`** | <code>string</code> | The same value passed to `echo`. |
 
+
 #### EchoOptions
 
 Input payload for the echo call.
@@ -280,6 +287,7 @@ Input payload for the echo call.
 | Prop        | Type                | Description                                                           |
 | ----------- | ------------------- | --------------------------------------------------------------------- |
 | **`value`** | <code>string</code> | Arbitrary text that should be returned by native/web implementations. |
+
 
 #### PluginVersionResult
 
