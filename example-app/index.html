@@ -3,19 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@capgo/capacitor-plugin-template Example</title>
+    <title>@capgo/capacitor-install-referrer Example</title>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
     <main class="container">
-      <h1>@capgo/capacitor-plugin-template</h1>
-      <p class="lead">Quickly validate the template plugin wiring.</p>
+      <h1>@capgo/capacitor-install-referrer</h1>
+      <p class="lead">Read native install attribution details.</p>
 
-      <label for="echo-value">Echo value</label>
-      <input id="echo-value" type="text" value="Hello from example app" />
+      <label class="check-row" for="fetch-apple-attribution">
+        <input id="fetch-apple-attribution" type="checkbox" />
+        Fetch Apple attribution payload on iOS
+      </label>
 
       <div class="actions">
-        <button id="run-echo">Run echo</button>
+        <button id="get-referrer">Get referrer</button>
         <button id="get-version">Get plugin version</button>
       </div>
 

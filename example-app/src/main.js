@@ -1,29 +1,31 @@
 import './style.css';
-import { PluginTemplate } from '@capgo/capacitor-plugin-template';
+import { InstallReferrer } from '@capgo/capacitor-install-referrer';
 
 const output = document.getElementById('plugin-output');
-const echoInput = document.getElementById('echo-value');
-const echoButton = document.getElementById('run-echo');
+const fetchAppleAttribution = document.getElementById('fetch-apple-attribution');
+const referrerButton = document.getElementById('get-referrer');
 const versionButton = document.getElementById('get-version');
 
 const setOutput = (value) => {
   output.textContent = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
 };
 
-echoButton.addEventListener('click', async () => {
+referrerButton.addEventListener('click', async () => {
   try {
-    const result = await PluginTemplate.echo({ value: echoInput.value });
+    const result = await InstallReferrer.getReferrer({
+      fetchAppleAttribution: fetchAppleAttribution.checked,
+    });
     setOutput(result);
   } catch (error) {
-    setOutput(`Error: ${error?.message ?? error}`);
+    setOutput('Error: ' + (error?.message ?? error));
   }
 });
 
 versionButton.addEventListener('click', async () => {
   try {
-    const result = await PluginTemplate.getPluginVersion();
+    const result = await InstallReferrer.getPluginVersion();
     setOutput(result);
   } catch (error) {
-    setOutput(`Error: ${error?.message ?? error}`);
+    setOutput('Error: ' + (error?.message ?? error));
   }
 });

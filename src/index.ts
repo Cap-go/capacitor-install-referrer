@@ -1,10 +1,10 @@
 import { registerPlugin } from '@capacitor/core';
 
-import type { PluginTemplatePlugin } from './definitions';
+import type { InstallReferrerPlugin } from './definitions';
 
-const PluginTemplate = registerPlugin<PluginTemplatePlugin>('PluginTemplate', {
-  web: () => import('./web').then((m) => new m.PluginTemplateWeb()),
+const InstallReferrer = registerPlugin<InstallReferrerPlugin>('InstallReferrer', {
+  web: () => import('./web').then((m) => new m.InstallReferrerWeb()),
 });
 
 export * from './definitions';
-export { PluginTemplate };
+export { InstallReferrer };

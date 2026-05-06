@@ -1,7 +1,7 @@
 {
-  "name": "@capgo/capacitor-plugin-template",
+  "name": "@capgo/capacitor-install-referrer",
   "version": "8.0.0",
-  "description": "Capgo Capacitor plugin template for quickly bootstrapping new plugins.",
+  "description": "Capacitor plugin for reading Google Play install referrer and Apple AdServices attribution.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -13,29 +13,29 @@
     "ios/Sources",
     "ios/Tests",
     "Package.swift",
-    "CapgoCapacitorPluginTemplate.podspec"
+    "CapgoCapacitorInstallReferrer.podspec"
   ],
   "author": "Martin Donadieu <martin@capgo.app>",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Cap-go/capacitor-plugin-template.git"
+    "url": "git+https://github.com/Cap-go/capacitor-install-referrer.git"
   },
   "bugs": {
-    "url": "https://github.com/Cap-go/capacitor-plugin-template/issues"
+    "url": "https://github.com/Cap-go/capacitor-install-referrer/issues"
   },
-  "homepage": "https://github.com/Cap-go/capacitor-plugin-template",
+  "homepage": "https://capgo.app/docs/plugins/install-referrer/",
   "keywords": [
-    "__AI_KEYWORD_PRIMARY__",
-    "__AI_KEYWORD_SECONDARY__",
-    "__AI_KEYWORD_USE_CASE__",
-    "__AI_KEYWORD_PLATFORM__",
-    "__AI_KEYWORD_VENDOR__"
+    "capacitor",
+    "capacitor-plugin",
+    "install-referrer",
+    "adservices",
+    "google-play",
+    "capgo"
   ],
   "scripts": {
-    "init-plugin": "./scripts/init-plugin.sh",
     "verify": "bun run verify:ios && bun run verify:android && bun run verify:web",
-    "verify:ios": "xcodebuild -scheme CapgoCapacitorPluginTemplate -destination generic/platform=iOS",
+    "verify:ios": "xcodebuild -scheme CapgoCapacitorInstallReferrer -destination generic/platform=iOS",
     "verify:android": "cd android && ./gradlew clean build test && cd ..",
     "verify:web": "bun run build",
     "lint": "bun run eslint && bun run prettier -- --check && bun run swiftlint -- lint",
@@ -43,7 +43,7 @@
     "eslint": "eslint . --ext .ts",
     "prettier": "prettier-pretty-check \"**/*.{css,html,ts,js,java}\" --plugin=prettier-plugin-java",
     "swiftlint": "node-swiftlint",
-    "docgen": "docgen --api PluginTemplatePlugin --output-readme README.md --output-json dist/docs.json",
+    "docgen": "docgen --api InstallReferrerPlugin --output-readme README.md --output-json dist/docs.json",
     "build": "bun run clean && bun run docgen && tsc && rollup -c rollup.config.mjs",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",

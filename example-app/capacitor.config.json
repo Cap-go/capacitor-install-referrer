@@ -1,5 +1,5 @@
 {
-  "appId": "app.capgo.plugintemplate.example",
-  "appName": "Plugin Template Example",
+  "appId": "app.capgo.installreferrer.example",
+  "appName": "Install Referrer Example",
   "webDir": "dist"
 }

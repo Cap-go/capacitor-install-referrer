@@ -1,10 +1,14 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { EchoOptions, EchoResult, PluginTemplatePlugin, PluginVersionResult } from './definitions';
+import type { GetReferrerResult, InstallReferrerPlugin, PluginVersionResult } from './definitions';
 
-export class PluginTemplateWeb extends WebPlugin implements PluginTemplatePlugin {
-  async echo(options: EchoOptions): Promise<EchoResult> {
-    return options;
+export class InstallReferrerWeb extends WebPlugin implements InstallReferrerPlugin {
+  async getReferrer(): Promise<GetReferrerResult> {
+    throw this.unavailable('Install referrer is only available on native iOS and Android.');
+  }
+
+  async GetReferrer(): Promise<GetReferrerResult> {
+    return this.getReferrer();
   }
 
   async getPluginVersion(): Promise<PluginVersionResult> {

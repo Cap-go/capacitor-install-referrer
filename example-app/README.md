@@ -1,4 +1,4 @@
-# Example App for `@capgo/capacitor-plugin-template`
+# Example App for `@capgo/capacitor-install-referrer`
 
 This Vite project links directly to the local plugin source so you can validate iOS, Android, and Web wiring while developing.
 
