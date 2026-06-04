@@ -1,6 +1,6 @@
 {
   "name": "@capgo/capacitor-install-referrer",
-  "version": "8.1.1",
+  "version": "8.1.2",
   "description": "Capacitor plugin for reading Google Play install referrer and Apple AdServices attribution.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
