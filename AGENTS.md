@@ -75,3 +75,7 @@ CHANGELOG.md is managed automatically by CI/CD. Do not edit it manually.
 - Keep Android on Java 21.
 - Do not edit dist manually.
 - Use Bun for every package command. Use bunx instead of npx.
+
+## Timeout Policy
+
+- Keep CI, script, and runtime timeouts at 10 minutes or less. Use `timeout-minutes: 10` or lower in GitHub Actions and cap timeout values at `600000` ms, `600` seconds, or `10m` unless explicitly requested.
