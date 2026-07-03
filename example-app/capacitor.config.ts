@@ -4,7 +4,7 @@ import pkg from './package.json';
 
 const config: CapacitorConfig = {
   appId: 'app.capgo.installreferrer.example',
-  appName: 'Install Referrer Example',
+  appName: '@capgo/capacitor-install-referrer',
   webDir: 'dist',
   plugins: {
     CapacitorUpdater: {
