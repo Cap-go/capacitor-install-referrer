@@ -71,6 +71,8 @@ CHANGELOG.md is managed automatically by CI/CD. Do not edit it manually.
 
 ## Common Pitfalls
 
+- Production and PR beta publishes use `npm stage publish`. Plugin CI only has the org `NPM_TOKEN`.
+
 - Keep CocoaPods and SwiftPM support working.
 - Keep Android on Java 21.
 - Do not edit dist manually.
