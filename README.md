@@ -1,10 +1,28 @@
 # @capgo/capacitor-install-referrer
-<a href="https://capgo.app/"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-install-referrer" alt="Capgo - Instant updates for Capacitor" /></a>
+
+Find out where an install came from: Google Play Install Referrer on Android and Apple AdServices attribution on iOS, behind one call. Attribute installs to campaigns without a full MMP SDK.
+
+<a href="https://capgo.app/?ref=plugin_install_referrer"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-install-referrer" alt="Capgo - Instant updates for Capacitor" /></a>
 
 <div align="center">
-  <h2><a href="https://capgo.app/?ref=plugin_install_referrer">➡️ Ship Instant Updates with Capgo</a></h2>
-  <h2><a href="https://capgo.app/consulting/?ref=plugin_install_referrer">Missing a feature? We’ll build the plugin for you 💪</a></h2>
+  <p><b>Capgo</b>: open-source live updates for Ionic and Capacitor apps. Ship OTA fixes and features instantly, without waiting for app store review.</p>
+  <h2><a href="https://capgo.app/register/?ref=plugin_install_referrer">➡️ Get started for free</a></h2>
+  <p>14-day unlimited free trial. No credit card required</p>
+  <p><a href="https://capgo.app/consulting/?ref=plugin_install_referrer">Missing a feature? We'll build the plugin for you 💪</a></p>
 </div>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Cap-go/capacitor-install-referrer/main/assets/github-social-preview.png" alt="@capgo/capacitor-install-referrer for Capacitor apps" width="300" />
+</p>
+
+## Key features
+
+- **One call**: `getReferrer()` returns native install attribution details.
+- **Android**: reads the Google Play Install Referrer, including the referrer string and timestamps.
+- **iOS**: returns an Apple AdServices attribution token.
+- **Apple Search Ads**: set `fetchAppleAttribution` to also fetch Apple's attribution payload.
+- **Drop-in alias**: `GetReferrer()` for code written for older referrer plugins.
+- **Platforms**: iOS and Android. Not available on web.
 
 Capacitor plugin for install attribution. Android reads Google Play Install Referrer, and iOS uses Apple AdServices attribution tokens with optional Apple Search Ads attribution lookup.
 
